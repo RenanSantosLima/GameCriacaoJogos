@@ -27,6 +27,13 @@ public class PlayerBehavior : MonoBehaviour
         //transform.Translate(moveDirection * Time.deltaTime * moveSpeed, 0, 0);
         Vector2 directionToMove = new Vector2(moveDirection * moveSpeed, rigidBody.velocity.y);
         rigidBody.velocity = directionToMove;
+
+        if (moveDirection < 0) {
+            transform.localScale = new Vector3(-1, 1, 1);
+            
+        } else if (moveDirection > 0) {
+            transform.localScale = Vector3.one;
+        }
     }
 
     //pulo
