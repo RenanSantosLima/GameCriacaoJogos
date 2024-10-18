@@ -9,6 +9,9 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float jumpForce = 5;
 
+    //moveDirection
+    private float moveDirection;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -23,11 +26,22 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        float moveDirection = GameManager.Instance.inputManager.Movement;
+        MovePlayer();
+
+        FlipSpritePlayerDirection();
+    }
+
+    //refatoração do update
+    private void MovePlayer()
+    {
+        moveDirection = GameManager.Instance.inputManager.Movement;
         //transform.Translate(moveDirection * Time.deltaTime * moveSpeed, 0, 0);
         Vector2 directionToMove = new Vector2(moveDirection * moveSpeed, rigidBody.velocity.y);
         rigidBody.velocity = directionToMove;
+    }
 
+    private void FlipSpritePlayerDirection()
+    {
         if (moveDirection < 0) {
             transform.localScale = new Vector3(-1, 1, 1);
             
